@@ -1,7 +1,7 @@
 //! Home tab: recommended tools, open card, pinned folders and recent files (local only, never
 //! another app's list).
 
-use egui::{Align2, CornerRadius, Rect, Sense, Stroke, vec2};
+use egui::{Align2, Color32, CornerRadius, Rect, Sense, Stroke, vec2};
 use pdfcraft_engine::catalog;
 
 use crate::theme::{self, Tokens};
@@ -71,18 +71,155 @@ fn tool_card(app: &mut PdfCraftApp, ui: &mut egui::Ui, t: &Tokens, g: &'static c
     }
 }
 
-/// Draw the Home page with the welcome text, community card and recent documents.
+/// Draw the Home page with modern SaaS hero, dropzone, feature highlights, and tools.
 pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
     let t = Tokens::get(ui.ctx());
     egui::ScrollArea::vertical().auto_shrink([false, false]).show(ui, |ui| {
-        egui::Frame::NONE.inner_margin(egui::Margin { left: 36, right: 36, top: 28, bottom: 28 }).show(ui, |ui| {
-            ui.label(egui::RichText::new(tl!("Welcome to SYNAPDF")).font(theme::semibold(24.0)));
-            ui.label(
-                egui::RichText::new(tl!("An open-source PDF workbench — local, private, and scriptable."))
-                    .color(t.text_muted)
-                    .font(theme::regular(14.0)),
+        egui::Frame::NONE.inner_margin(egui::Margin { left: 32, right: 32, top: 24, bottom: 32 }).show(ui, |ui| {
+            // Modern Hero Section
+            ui.vertical_centered(|ui| {
+                ui.add_space(6.0);
+                // Feature badge capsule
+                egui::Frame::NONE
+                    .fill(t.accent.gamma_multiply(0.12))
+                    .stroke(Stroke::new(1.0, t.accent.gamma_multiply(0.35)))
+                    .corner_radius(CornerRadius::same(14))
+                    .inner_margin(egui::Margin { left: 14, right: 14, top: 5, bottom: 5 })
+                    .show(ui, |ui| {
+                        ui.horizontal(|ui| {
+                            icons::paint(ui, Rect::from_min_size(ui.cursor().min + vec2(0.0, 1.0), vec2(14.0, 14.0)), "sparkles", 14.0, t.accent);
+                            ui.allocate_space(vec2(18.0, 14.0));
+                            ui.label(
+                                egui::RichText::new("100% Client-Side WebAssembly  •  Zero Server Uploads  •  Instant Privacy")
+                                    .font(theme::semibold(12.0))
+                                    .color(t.accent),
+                            );
+                        });
+                    });
+
+                ui.add_space(14.0);
+                ui.label(egui::RichText::new("SYNAPDF").font(theme::semibold(32.0)).color(t.text));
+                ui.add_space(4.0);
+                ui.label(
+                    egui::RichText::new("The Modern, High-Performance PDF Workbench")
+                        .font(theme::medium(16.0))
+                        .color(t.text_muted),
+                );
+                ui.add_space(2.0);
+                ui.label(
+                    egui::RichText::new("Edit, organize, convert, sign, and protect your PDFs directly in your browser with zero latency.")
+                        .font(theme::regular(13.0))
+                        .color(t.text_muted.gamma_multiply(0.85)),
+                );
+            });
+
+            ui.add_space(22.0);
+
+            // Center Stage Interactive Dropzone
+            let avail_w = ui.available_width();
+            let dropzone_w = avail_w.min(760.0);
+            let dropzone_x = (avail_w - dropzone_w) * 0.5;
+            let dropzone_top = ui.cursor().min + vec2(dropzone_x.max(0.0), 0.0);
+            let dropzone_rect = Rect::from_min_size(dropzone_top, vec2(dropzone_w, 150.0));
+            let drop_resp = ui.interact(dropzone_rect, ui.scope_id().with("hero_dropzone"), Sense::click());
+            drop_resp.widget_info(|| egui::WidgetInfo::labeled(egui::Role::Button, true, "Choose or drop PDF"));
+            let is_drop_hover = drop_resp.hovered();
+
+            let drop_fill = if is_drop_hover {
+                t.accent.gamma_multiply(0.08)
+            } else {
+                t.card
+            };
+            let drop_stroke = if is_drop_hover {
+                Stroke::new(2.0, t.accent)
+            } else {
+                Stroke::new(1.5, t.border)
+            };
+
+            ui.painter().rect(
+                dropzone_rect,
+                CornerRadius::same(14),
+                drop_fill,
+                drop_stroke,
+                egui::StrokeKind::Inside,
             );
-            ui.add_space(14.0);
+
+            let d_center = dropzone_rect.center();
+            icons::paint(
+                ui,
+                Rect::from_center_size(d_center - vec2(0.0, 36.0), vec2(36.0, 36.0)),
+                "cloud-upload",
+                34.0,
+                if is_drop_hover { t.accent } else { t.accent.gamma_multiply(0.85) },
+            );
+
+            ui.painter().text(
+                d_center - vec2(0.0, 4.0),
+                Align2::CENTER_CENTER,
+                "Drop your PDF here, or click to browse",
+                theme::semibold(15.5),
+                t.text,
+            );
+
+            ui.painter().text(
+                d_center + vec2(0.0, 18.0),
+                Align2::CENTER_CENTER,
+                "Supports all PDF versions • Processed entirely on your machine • 100% Confidential",
+                theme::regular(12.0),
+                t.text_muted,
+            );
+
+            let cta_rect = Rect::from_center_size(d_center + vec2(0.0, 45.0), vec2(140.0, 26.0));
+            let cta_fill = if is_drop_hover { t.accent } else { t.accent.gamma_multiply(0.9) };
+            ui.painter().rect_filled(cta_rect, CornerRadius::same(13), cta_fill);
+            ui.painter().text(cta_rect.center(), Align2::CENTER_CENTER, "Choose PDF File", theme::semibold(12.0), Color32::WHITE);
+
+            ui.allocate_rect(dropzone_rect, Sense::hover());
+            if theme::hand(drop_resp).clicked() {
+                app.open_dialog();
+            }
+
+            ui.add_space(20.0);
+
+            // 3 Modern Value Proposition Feature Cards
+            let col_gap = 14.0;
+            let cols_total_w = dropzone_w;
+            let col_w = ((cols_total_w - 2.0 * col_gap) / 3.0).max(180.0);
+            let cols_x_offset = (avail_w - (col_w * 3.0 + 2.0 * col_gap)).max(0.0) * 0.5;
+
+            ui.horizontal(|ui| {
+                ui.add_space(cols_x_offset);
+                let features = [
+                    ("shield-check", "100% Private & Local", "Your documents never touch any remote server. Zero data leaks."),
+                    ("gauge", "Blazing Fast Wasm", "Instant opening and rendering powered by compiled native WebAssembly."),
+                    ("layers", "Full PDF Toolkit", "Organize, merge, redact, sign, form-fill, annotate, and protect PDFs."),
+                ];
+
+                for (icon, title, desc) in features {
+                    egui::Frame::NONE
+                        .fill(t.card)
+                        .stroke(Stroke::new(1.0, t.divider))
+                        .corner_radius(CornerRadius::same(10))
+                        .inner_margin(egui::Margin::same(12))
+                        .show(ui, |ui| {
+                            ui.set_width(col_w - 24.0);
+                            ui.set_height(72.0);
+                            ui.horizontal(|ui| {
+                                icons::paint(ui, Rect::from_min_size(ui.cursor().min + vec2(0.0, 2.0), vec2(22.0, 22.0)), icon, 20.0, t.accent);
+                                ui.allocate_space(vec2(24.0, 20.0));
+                                ui.vertical(|ui| {
+                                    ui.label(egui::RichText::new(title).font(theme::semibold(13.0)));
+                                    ui.label(egui::RichText::new(desc).font(theme::regular(11.0)).color(t.text_muted));
+                                });
+                            });
+                        });
+                    ui.add_space(col_gap);
+                }
+            });
+
+            ui.add_space(24.0);
+
+            // Community Links Bar (if open)
             if !app.community_card_closed {
                 egui::Frame::NONE
                     .fill(t.card)
@@ -113,6 +250,7 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                 ui.add_space(22.0);
             }
 
+            // Recommended Tools
             egui::Frame::NONE
                 .fill(t.card)
                 .stroke(Stroke::new(1.0, t.border))
@@ -130,23 +268,6 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                             }
                             let Some(g) = catalog::group(id) else { continue };
                             tool_card(app, ui, &t, g, false);
-                        }
-                        let (rect, resp) = ui.allocate_exact_size(vec2(170.0, 104.0), Sense::click());
-                        resp.widget_info(|| egui::WidgetInfo::labeled(egui::Role::Button, true, tl!("Open file")));
-                        let press = theme::Press::track(ui, &resp);
-                        card_lift(ui, &t, rect, press);
-                        ui.painter().rect(
-                            rect,
-                            CornerRadius::same(10),
-                            press.fill(t.pasteboard, t.hover, t.pressed),
-                            Stroke::new(1.0, t.divider),
-                            egui::StrokeKind::Inside,
-                        );
-                        let body = rect.translate(press.offset());
-                        icons::paint(ui, Rect::from_center_size(body.center() - vec2(0.0, 16.0), vec2(28.0, 28.0)), "folder-open", 26.0, t.icon);
-                        ui.painter().text(body.center() + vec2(0.0, 22.0), Align2::CENTER_CENTER, tl!("Open file"), theme::semibold(13.0), t.text);
-                        if theme::hand(resp).clicked() {
-                            app.open_dialog();
                         }
                     });
                 });

@@ -1,7 +1,7 @@
 //! Window chrome: tab strip (with the integrated macOS title bar), mode bar, right rail.
 
 use craft_ui::panes::{Rail, RailItem, RailRequest};
-use egui::{Align, Color32, CornerRadius, Layout, Rect, Sense, Stroke, vec2};
+use egui::{Align, Align2, Color32, CornerRadius, Layout, Rect, Sense, Stroke, vec2};
 
 use crate::canvas::{DocView, Fit, PageLayout};
 use crate::theme::{self, ThemePreference, Tokens};
@@ -65,7 +65,15 @@ pub fn tab_strip(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                     });
                     ui.add_space(window_controls::SIDE_GAP - 4.0);
                 }
-                if icons::button(ui, "house", button, app.active.is_none() && !app.combine_showing(), tl!("Home")).clicked() {
+                let home_active = app.active.is_none() && !app.combine_showing();
+                let (logo_rect, logo_resp) = ui.allocate_exact_size(vec2(98.0, button), Sense::click());
+                logo_resp.widget_info(|| egui::WidgetInfo::labeled(egui::Role::Button, true, "SYNAPDF Home"));
+                if logo_resp.hovered() || home_active {
+                    ui.painter().rect_filled(logo_rect, CornerRadius::same(6), if home_active { t.selected } else { t.hover });
+                }
+                icons::paint(ui, Rect::from_center_size(logo_rect.left_center() + vec2(14.0, 0.0), vec2(18.0, 18.0)), "file-text", 18.0, Color32::from_rgb(0x00, 0x66, 0xFF));
+                ui.painter().text(logo_rect.left_center() + vec2(28.0, 0.0), Align2::LEFT_CENTER, "SYNAPDF", theme::semibold(13.5), if home_active { t.accent_text } else { t.text });
+                if theme::hand(logo_resp).clicked() {
                     app.active = None;
                     app.combine_tab.focused = false;
                 }
