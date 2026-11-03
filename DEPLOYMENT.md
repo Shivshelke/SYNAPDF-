@@ -1,6 +1,6 @@
-# PdfCraft Web — Deployment Guide
+# SYNAPDF — Deployment Guide
 
-PdfCraft Web is a client-side WebAssembly (WASM) PDF workbench running entirely in the browser. It does not require a heavy backend or database.
+SYNAPDF is a complete client-side WebAssembly (WASM) PDF workbench running entirely in the browser. It does not require a heavy backend or database.
 
 ---
 
@@ -9,11 +9,11 @@ PdfCraft Web is a client-side WebAssembly (WASM) PDF workbench running entirely 
 ### Option 1: Vercel (Recommended)
 1. Push this repository to GitHub/GitLab.
 2. Go to [vercel.com](https://vercel.com) and click **"Add New Project"**.
-3. Import your repository.
+3. Import your repository (`SYNAPDF-`).
 4. Set:
    - **Framework Preset:** Other
    - **Output Directory:** `dist/web`
-   - **Build Command:** `npm run build` (or leave default if you commit the `dist/web` folder)
+   - **Build Command:** Leave empty (OFF)
 5. `vercel.json` is already included to configure proper `.wasm` MIME types and cache headers.
 
 ---
@@ -22,7 +22,7 @@ PdfCraft Web is a client-side WebAssembly (WASM) PDF workbench running entirely 
 1. Go to [netlify.com](https://netlify.com) and import your repo.
 2. Build Settings:
    - **Publish directory:** `dist/web`
-   - **Build command:** `npm run build`
+   - **Build command:** Leave empty or `npm run build`
 3. `netlify.toml` and `_headers` are already included to handle WebAssembly headers.
 
 ---
@@ -32,24 +32,18 @@ PdfCraft Web is a client-side WebAssembly (WASM) PDF workbench running entirely 
 2. Connect your Git repository.
 3. Build Settings:
    - **Build output directory:** `dist/web`
-   - **Build command:** `npm run build`
+   - **Build command:** Leave empty or `npm run build`
 
 ---
 
-### Option 4: GitHub Pages
-1. The `dist/web` folder contains all static files (`index.html`, `.wasm`, `.js`, `favicon.svg`).
-2. You can deploy the contents of `dist/web` directly to the `gh-pages` branch.
-
----
-
-### Option 5: Docker / Cloud Run / VPS (Container)
+### Option 4: Docker / Cloud Run / VPS (Container)
 A multi-stage `Dockerfile` and `nginx.conf` are pre-configured:
 ```bash
 # Build the Docker image
-docker build -t pdfcraft-web .
+docker build -t synapdf .
 
 # Run the container locally on port 8080
-docker run -p 8080:80 pdfcraft-web
+docker run -p 8080:80 synapdf
 ```
 Open `http://localhost:8080` in your browser.
 
@@ -88,4 +82,3 @@ npm run preview
 | `netlify.toml` | Netlify deployment configuration |
 | `Dockerfile` | Multi-stage Docker container build |
 | `nginx.conf` | High-performance Nginx config with Gzip & WASM MIME headers |
-

@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="PdfCraft Web — Complete client-side PDF Workbench for reading, organizing, annotating, and editing PDFs." />
+    <meta name="description" content="SYNAPDF — Complete client-side PDF Workbench for reading, organizing, annotating, and editing PDFs." />
     <meta name="theme-color" content="#19191c" />
-    <title>PdfCraft Web — PDF Workbench</title>
+    <title>SYNAPDF — Complete PDF Workbench</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     
     
 <script type="module">
 import init, * as bindings from './pdfcraft-web-b13aa475f4fb1c09.js';
-const wasm = await init({ module_or_path: './pdfcraft-web-d94d386b4415bb8c_bg.wasm' });
+const wasm = await init({ module_or_path: './pdfcraft-web-e76bd15ef6ca2c48_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -68,8 +68,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
         margin-bottom: 20px;
       }
       .loading-title {
-        font-size: 1.15rem;
-        font-weight: 600;
+        font-size: 1.25rem;
+        font-weight: 700;
         letter-spacing: -0.01em;
         margin: 0 0 6px 0;
       }
@@ -82,11 +82,11 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
         to { transform: rotate(360deg); }
       }
     </style>
-  <link rel="modulepreload" href="./pdfcraft-web-b13aa475f4fb1c09.js" crossorigin="anonymous" integrity="sha384-yCQ00fmNj4Z+JvQqzGkU2/b0LzZBUyRtL2I+Y2qQ/JnQKla/j/mmR6xq9KDzXPJA"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./pdfcraft-web-d94d386b4415bb8c_bg.wasm" crossorigin="anonymous" integrity="sha384-I23ntxbcpWgoi/etkAQY5kfPW+y3WP38I3GcLKRFWmIAcV3JISTLLbHUv7SvktK4" as="fetch" type="application/wasm"></head>
+  <link rel="modulepreload" href="./pdfcraft-web-b13aa475f4fb1c09.js" crossorigin="anonymous" integrity="sha384-yCQ00fmNj4Z+JvQqzGkU2/b0LzZBUyRtL2I+Y2qQ/JnQKla/j/mmR6xq9KDzXPJA"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./pdfcraft-web-e76bd15ef6ca2c48_bg.wasm" crossorigin="anonymous" integrity="sha384-DzJ6iCd0YaMM9B0sn/iaTItLMFjSGeOmqnh2snK1nXdouaaWbbL/MD3dlNA0koXB" as="fetch" type="application/wasm"></head>
   <body>
     <div id="loading">
       <div class="spinner"></div>
-      <p class="loading-title">PdfCraft Web</p>
+      <p class="loading-title">SYNAPDF</p>
       <p class="loading-subtitle">Loading client-side PDF workbench...</p>
     </div>
     <canvas id="pdfcraft"></canvas>

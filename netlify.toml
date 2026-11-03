@@ -1,6 +1,6 @@
 [build]
   publish = "dist/web"
-  command = "cd apps/pdfcraft-web && trunk build --release"
+  command = "echo 'Static build ready in dist/web'"
 
 [[headers]]
   for = "/*"
@@ -23,4 +23,3 @@
   for = "/index.html"
   [headers.values]
     Cache-Control = "no-cache"
-

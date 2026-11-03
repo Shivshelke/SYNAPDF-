@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "echo 'Static build ready in dist/web'",
   "outputDirectory": "dist/web",
   "cleanUrls": true,
   "headers": [
@@ -31,4 +32,3 @@
     }
   ]
 }
-

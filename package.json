@@ -1,9 +1,10 @@
 {
-  "name": "pdfcraft-web",
-  "version": "0.18.0",
-  "description": "Complete client-side PDF Workbench running in the browser via WebAssembly",
+  "name": "synapdf",
+  "version": "1.0.0",
+  "description": "SYNAPDF — Complete client-side PDF Workbench running in the browser via WebAssembly",
   "scripts": {
-    "build": "cd apps/pdfcraft-web && trunk build --release && cp ../../packaging/web/_headers ../../dist/web/ 2>/dev/null || true; cp ../../packaging/web/.htaccess ../../dist/web/ 2>/dev/null || true",
+    "build": "echo 'Static site ready in dist/web'",
+    "build:wasm": "cd apps/pdfcraft-web && trunk build --release && cp ../../packaging/web/_headers ../../dist/web/ 2>/dev/null || true; cp ../../packaging/web/.htaccess ../../dist/web/ 2>/dev/null || true",
     "dev": "cd apps/pdfcraft-web && trunk serve",
     "serve": "cd apps/pdfcraft-web && trunk serve",
     "preview": "npx serve dist/web"
@@ -14,9 +15,8 @@
     "wasm",
     "pdf-editor",
     "pdf-workbench",
-    "rust"
+    "synapdf"
   ],
-  "author": "PdfCraft Team",
+  "author": "SYNAPDF Team",
   "license": "MIT OR Apache-2.0"
 }
-
