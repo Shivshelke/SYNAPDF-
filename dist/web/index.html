@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="PdfCraft Web — Complete client-side PDF Workbench for reading, organizing, annotating, and editing PDFs." />
+    <meta name="theme-color" content="#19191c" />
+    <title>PdfCraft Web — PDF Workbench</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    
+    
+<script type="module">
+import init, * as bindings from './pdfcraft-web-b13aa475f4fb1c09.js';
+const wasm = await init({ module_or_path: './pdfcraft-web-d94d386b4415bb8c_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f1f1f3;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        outline: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        html, body { background: #19191c; color: #f1f1f3; }
+      }
+
+      /* Loading screen */
+      #loading {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: inherit;
+        z-index: 9999;
+        transition: opacity 0.35s ease-out, visibility 0.35s ease-out;
+      }
+      #loading.loaded {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid rgba(0, 102, 255, 0.15);
+        border-top-color: #0066ff;
+        border-radius: 50%;
+        animation: spin 0.9s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+        margin-bottom: 20px;
+      }
+      .loading-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin: 0 0 6px 0;
+      }
+      .loading-subtitle {
+        font-size: 0.875rem;
+        opacity: 0.65;
+        margin: 0;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  <link rel="modulepreload" href="./pdfcraft-web-b13aa475f4fb1c09.js" crossorigin="anonymous" integrity="sha384-yCQ00fmNj4Z+JvQqzGkU2/b0LzZBUyRtL2I+Y2qQ/JnQKla/j/mmR6xq9KDzXPJA"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./pdfcraft-web-d94d386b4415bb8c_bg.wasm" crossorigin="anonymous" integrity="sha384-I23ntxbcpWgoi/etkAQY5kfPW+y3WP38I3GcLKRFWmIAcV3JISTLLbHUv7SvktK4" as="fetch" type="application/wasm"></head>
+  <body>
+    <div id="loading">
+      <div class="spinner"></div>
+      <p class="loading-title">PdfCraft Web</p>
+      <p class="loading-subtitle">Loading client-side PDF workbench...</p>
+    </div>
+    <canvas id="pdfcraft"></canvas>
+
+    <script>
+      window.addEventListener('TrunkApplicationStarted', function() {
+        var loader = document.getElementById('loading');
+        if (loader) {
+          loader.classList.add('loaded');
+          setTimeout(function() {
+            if (loader.parentNode) {
+              loader.parentNode.removeChild(loader);
+            }
+          }, 400);
+        }
+      });
+    </script>
+  </body>
+</html>
