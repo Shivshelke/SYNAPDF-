@@ -1550,31 +1550,35 @@ fn dialog_about(ui: &mut egui::Ui, req: &mut Pending) -> bool {
     ui.data_mut(|d| d.insert_temp(tab_id, tab));
     ui.separator();
     match tab {
-        1 => crate::credits::contributors_ui(ui),
+        1 => {
+            ui.add_space(8.0);
+            ui.label(egui::RichText::new("SYNAPDF Maintainer & Project").font(theme::semibold(16.0)));
+            ui.add_space(8.0);
+            ui.label("SYNAPDF is an open-source, client-side PDF workbench built in pure Rust and WebAssembly.");
+            ui.label("Maintained by Shivam Shelke (@Shivshelke).");
+            ui.add_space(12.0);
+            if ui.button("View on GitHub").clicked() {
+                req.link_command = Some("help.github");
+            }
+        }
         2 => crate::credits::models_ui(ui),
         _ => {
             ui.horizontal(|ui| {
-                widgets::artcraft_mark(ui, 40.0);
+                crate::icons::paint(ui, egui::Rect::from_min_size(ui.cursor().min + egui::vec2(0.0, 2.0), egui::vec2(36.0, 36.0)), "file-text", 32.0, egui::Color32::from_rgb(0x00, 0x66, 0xFF));
+                ui.allocate_space(egui::vec2(36.0, 36.0));
                 ui.vertical(|ui| {
                     ui.label(egui::RichText::new("SYNAPDF").font(theme::semibold(20.0)));
                     ui.label(crate::i18n::fmt(tl!("Version {v}"), &[("v", &pdfcraft_engine::build_info::version())]));
                 });
             });
             ui.add_space(6.0);
-            ui.label(tl!("A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0."));
+            ui.label("A complete, client-side PDF workbench written in Rust and WebAssembly. MIT OR Apache-2.0.");
             ui.label(
-                egui::RichText::new(
-                    "Rendering: hayro (bootstrap) · UI: egui · Icons: Lucide (ISC) · Fonts: Inter, JetBrains Mono, Dancing Script (OFL)",
-                )
-                .color(t.text_muted)
-                .small(),
+                egui::RichText::new("Maintained by Shivam Shelke (@Shivshelke) · All client-side, zero cloud uploads.")
+                    .color(t.text_muted)
+                    .small(),
             );
-            ui.add_space(12.0);
-            ui.horizontal(|ui| {
-                ui.label(egui::RichText::new(tl!("Part of")).color(t.text_muted));
-                widgets::artcraft_logo(ui, 16.0);
-            });
-            ui.add_space(6.0);
+            ui.add_space(10.0);
             if let Some(cmd) = widgets::community_links(ui) {
                 req.link_command = Some(cmd);
             }

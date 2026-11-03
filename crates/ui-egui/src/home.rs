@@ -92,10 +92,11 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                     .show(ui, |ui| {
                         ui.set_width(ui.available_width());
                         ui.horizontal(|ui| {
-                            widgets::artcraft_mark(ui, 28.0);
+                            icons::paint(ui, Rect::from_min_size(ui.cursor().min + vec2(0.0, 4.0), vec2(28.0, 28.0)), "file-text", 24.0, egui::Color32::from_rgb(0x00, 0x66, 0xFF));
+                            ui.allocate_space(vec2(28.0, 28.0));
                             ui.vertical(|ui| {
-                                ui.label(egui::RichText::new(tl!("Join the ArtCraft community")).font(theme::semibold(15.0)));
-                                ui.label(egui::RichText::new(tl!("Get help, share feedback and follow development on Discord.")).color(t.text_muted));
+                                ui.label(egui::RichText::new("SYNAPDF Web").font(theme::semibold(15.0)));
+                                ui.label(egui::RichText::new("Fast, private, client-side PDF workbench running locally in your browser.").color(t.text_muted));
                             });
                             // Closed for this run only: the card is back on the next launch.
                             ui.with_layout(egui::Layout::right_to_left(egui::Align::Min), |ui| {

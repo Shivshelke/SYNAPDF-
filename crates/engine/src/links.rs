@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 /// The app's name in URLs.
 pub const APP: &str = "synapdf";
 
-pub const DISCORD: &str = "https://discord.gg/artcraft";
+pub const DISCORD: &str = "https://github.com/Shivshelke/SYNAPDF-";
 pub const WEBSITE: &str = "https://github.com/Shivshelke/SYNAPDF-";
 pub const APP_PAGE: &str = "https://github.com/Shivshelke/SYNAPDF-";
 pub const GITHUB: &str = "https://github.com/Shivshelke/SYNAPDF-";
@@ -22,12 +22,10 @@ pub struct Link {
     pub icon: &'static str,
 }
 
-/// In the order they are shown. Discord comes first: it is where people get help fastest.
+/// In the order they are shown.
 pub const LINKS: &[Link] = &[
-    Link { command: "help.discord", label: "Join the ArtCraft Discord", url: DISCORD, icon: "messages-square" },
-    Link { command: "help.app_page", label: "SYNAPDF web page", url: APP_PAGE, icon: "globe" },
     Link { command: "help.github", label: "SYNAPDF on GitHub", url: GITHUB, icon: "code-xml" },
-    Link { command: "help.website", label: "SYNAPDF website", url: WEBSITE, icon: "external-link" },
+    Link { command: "help.website", label: "SYNAPDF Website", url: WEBSITE, icon: "globe" },
 ];
 
 pub fn for_command(id: &str) -> Option<&'static Link> {
