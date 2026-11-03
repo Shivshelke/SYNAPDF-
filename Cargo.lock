@@ -4630,18 +4630,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pdfcraft-web"
-version = "0.18.0"
-dependencies = [
- "eframe",
- "egui",
- "js-sys",
- "pdfcraft-ui-egui",
- "wasm-bindgen-futures",
- "web-sys",
-]
-
-[[package]]
 name = "pdfcraft-xfa"
 version = "0.18.0"
 dependencies = [
@@ -6600,6 +6588,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "synapdf-web"
+version = "0.18.0"
+dependencies = [
+ "eframe",
+ "egui",
+ "js-sys",
+ "pdfcraft-ui-egui",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]

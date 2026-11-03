@@ -10,8 +10,8 @@
     
     
 <script type="module">
-import init, * as bindings from './pdfcraft-web-b13aa475f4fb1c09.js';
-const wasm = await init({ module_or_path: './pdfcraft-web-e76bd15ef6ca2c48_bg.wasm' });
+import init, * as bindings from './synapdf-web-93fb3b772f1af913.js';
+const wasm = await init({ module_or_path: './synapdf-web-63936f9cea8754d9_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -82,14 +82,14 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
         to { transform: rotate(360deg); }
       }
     </style>
-  <link rel="modulepreload" href="./pdfcraft-web-b13aa475f4fb1c09.js" crossorigin="anonymous" integrity="sha384-yCQ00fmNj4Z+JvQqzGkU2/b0LzZBUyRtL2I+Y2qQ/JnQKla/j/mmR6xq9KDzXPJA"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./pdfcraft-web-e76bd15ef6ca2c48_bg.wasm" crossorigin="anonymous" integrity="sha384-DzJ6iCd0YaMM9B0sn/iaTItLMFjSGeOmqnh2snK1nXdouaaWbbL/MD3dlNA0koXB" as="fetch" type="application/wasm"></head>
+  <link rel="modulepreload" href="./synapdf-web-93fb3b772f1af913.js" crossorigin="anonymous" integrity="sha384-YkGQBkmF+34oEGTPj3ihAxIy47DyJCZqnBc+lpzgoNRLjMXjsjJI9gwwzVr264PO"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./synapdf-web-63936f9cea8754d9_bg.wasm" crossorigin="anonymous" integrity="sha384-iZwF82Wh2kvuLPDQYpRqbeEK9Vl25xMVbHamnijigyKaCsNFjp1w9ngSkNVx0Ky0" as="fetch" type="application/wasm"></head>
   <body>
     <div id="loading">
       <div class="spinner"></div>
       <p class="loading-title">SYNAPDF</p>
       <p class="loading-subtitle">Loading client-side PDF workbench...</p>
     </div>
-    <canvas id="pdfcraft"></canvas>
+    <canvas id="synapdf"></canvas>
 
     <script>
       window.addEventListener('TrunkApplicationStarted', function() {

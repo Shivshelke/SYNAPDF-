@@ -3007,7 +3007,7 @@ function __wbg_get_imports() {
             return ret;
         },
         __wbindgen_generic_0000000000000005: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [NamedExternref("MessageEvent")], shim_idx: 5049, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [NamedExternref("MessageEvent")], shim_idx: 8100, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm_bindgen_62260b24ebddd1f5___convert__closures_____invoke___web_sys_52e086c59c2738cc___features__gen_MessageEvent__MessageEvent______true_);
             return ret;
         },
@@ -3027,7 +3027,7 @@ function __wbg_get_imports() {
             return ret;
         },
         __wbindgen_generic_0000000000000009: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [], shim_idx: 5538, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [], shim_idx: 5463, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm_bindgen_62260b24ebddd1f5___convert__closures_____invoke_______true_);
             return ret;
         },
@@ -3088,7 +3088,7 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./pdfcraft-web_bg.js": import0,
+        "./synapdf-web_bg.js": import0,
         "./snippets/eframe-d31a8450ea12dfc1/inline0.js": import1,
         "./snippets/eframe-d31a8450ea12dfc1/inline0.js": import2,
     };
@@ -3630,7 +3630,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('pdfcraft-web_bg.wasm', import.meta.url);
+        module_or_path = new URL('synapdf-web_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
